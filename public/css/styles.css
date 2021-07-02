@@ -78,10 +78,25 @@ color: black;
 background-color: white;
 }
 
+.back_btn{
+    color: white;
+    background-color: gray;
+    width: 100px;
+    }
+    
+.back_btn:hover{
+color: black;
+background-color: darkgray;
+}
+
 .links{
 color: white;
 }
 
 .links a{
 margin-left: 4px;
+}
+
+.ErrorTextoLogin {
+    color: red;
 }

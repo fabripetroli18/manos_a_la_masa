@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Externo{% endblock %}
+
+{% block body %}
+    <h1>Externo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ externo.id }}</td>
+            </tr>
+            <tr>
+                <th>ExternoMail</th>
+                <td>{{ externo.externoMail }}</td>
+            </tr>
+            <tr>
+                <th>ExternoPass</th>
+                <td>{{ externo.externoPass }}</td>
+            </tr>
+            <tr>
+                <th>ExternoAdmin</th>
+                <td>{{ externo.externoAdmin ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>ExternoActivo</th>
+                <td>{{ externo.externoActivo ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('externo_index') }}">back to list</a>
+
+    <a href="{{ path('externo_edit', {'id': externo.id}) }}">edit</a>
+
+    {{ include('externo/_delete_form.html.twig') }}
+{% endblock %}

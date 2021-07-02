@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+<div class="input-group form-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-at"></i></span>
+    </div>
+    {{ form_widget(form.externoMail, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+<div class="input-group form-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+    </div>
+    {{ form_widget(form.externoPass, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+<div class="input-group form-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-list"></i></span>
+    </div>
+    {{ form_widget(form.perfiles, {'attr': {'class': 'form-select'}}) }}
+</div>
+
+
+<div class="form-group">
+    <div class="d-flex justify-content-center">
+        <input id="btnEnviar" type="submit" value="Alta" class="btn float-left login_btn">
+        <a class="btn float-right back_btn" href="/">Volver</a> 
+    </div>    
+</div>    
+{{ form_end(form) }}

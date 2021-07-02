@@ -34,9 +34,15 @@ class Perfil
      */
     private $restriccions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Externo::class, mappedBy="perfiles")
+     */
+    private $externos;
+
     public function __construct()
     {
         $this->restriccions = new ArrayCollection();
+        $this->externos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -103,5 +109,36 @@ class Perfil
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Externo[]
+     */
+    public function getExternos(): Collection
+    {
+        return $this->externos;
+    }
+
+    public function addExterno(Externo $externo): self
+    {
+        if (!$this->externos->contains($externo)) {
+            $this->externos[] = $externo;
+            $externo->addPerfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExterno(Externo $externo): self
+    {
+        if ($this->externos->removeElement($externo)) {
+            $externo->removePerfile($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString() {
+        return $this->perfilNomApe;
     }
 }

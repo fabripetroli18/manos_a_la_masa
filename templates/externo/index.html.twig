@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Externo index{% endblock %}
+
+{% block body %}
+    <h1>Externo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ExternoMail</th>
+                <th>ExternoPass</th>
+                <th>ExternoAdmin</th>
+                <th>ExternoActivo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for externo in externos %}
+            <tr>
+                <td>{{ externo.id }}</td>
+                <td>{{ externo.externoMail }}</td>
+                <td>{{ externo.externoPass }}</td>
+                <td>{{ externo.externoAdmin ? 'Yes' : 'No' }}</td>
+                <td>{{ externo.externoActivo ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('externo_show', {'id': externo.id}) }}">show</a>
+                    <a href="{{ path('externo_edit', {'id': externo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('externo_new') }}">Create new</a>
+{% endblock %}
