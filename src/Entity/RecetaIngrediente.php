@@ -28,14 +28,9 @@ class RecetaIngrediente
     private $ingrediente;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $recetaIngredienteCant;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $recetaIngredienteUnm;
+    private $cantidad;
 
     public function getId(): ?int
     {
@@ -66,26 +61,14 @@ class RecetaIngrediente
         return $this;
     }
 
-    public function getRecetaIngredienteCant(): ?int
+    public function getCantidad(): ?string
     {
-        return $this->recetaIngredienteCant;
+        return $this->cantidad;
     }
 
-    public function setRecetaIngredienteCant(int $recetaIngredienteCant): self
+    public function setCantidad(?string $cantidad): self
     {
-        $this->recetaIngredienteCant = $recetaIngredienteCant;
-
-        return $this;
-    }
-
-    public function getRecetaIngredienteUnm(): ?string
-    {
-        return $this->recetaIngredienteUnm;
-    }
-
-    public function setRecetaIngredienteUnm(string $recetaIngredienteUnm): self
-    {
-        $this->recetaIngredienteUnm = $recetaIngredienteUnm;
+        $this->cantidad = $cantidad;
 
         return $this;
     }

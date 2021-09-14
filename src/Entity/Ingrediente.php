@@ -20,23 +20,26 @@ class Ingrediente
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ingredienteDsc;
+    private $descripcion;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Restriccion::class, mappedBy="ingrediente")
+     * @ORM\ManyToOne(targetEntity=Unidad::class)
      */
-    private $restriccions;
+    private $unidad;
 
     /**
      * @ORM\OneToMany(targetEntity=RecetaIngrediente::class, mappedBy="ingrediente")
      */
     private $recetaIngredientes;
 
+    public function __toString(){
+        return $this->getDescripcion();
+    }
+
     public function __construct()
     {
-        $this->restriccions = new ArrayCollection();
         $this->recetaIngredientes = new ArrayCollection();
     }
 
@@ -45,41 +48,26 @@ class Ingrediente
         return $this->id;
     }
 
-    public function getIngredienteDsc(): ?string
+    public function getDescripcion(): ?string
     {
-        return $this->ingredienteDsc;
+        return $this->descripcion;
     }
 
-    public function setIngredienteDsc(string $ingredienteDsc): self
+    public function setDescripcion(?string $descripcion): self
     {
-        $this->ingredienteDsc = $ingredienteDsc;
+        $this->descripcion = $descripcion;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Restriccion[]
-     */
-    public function getRestriccions(): Collection
+    public function getUnidad(): ?Unidad
     {
-        return $this->restriccions;
+        return $this->unidad;
     }
 
-    public function addRestriccion(Restriccion $restriccion): self
+    public function setUnidad(?Unidad $unidad): self
     {
-        if (!$this->restriccions->contains($restriccion)) {
-            $this->restriccions[] = $restriccion;
-            $restriccion->addIngrediente($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRestriccion(Restriccion $restriccion): self
-    {
-        if ($this->restriccions->removeElement($restriccion)) {
-            $restriccion->removeIngrediente($this);
-        }
+        $this->unidad = $unidad;
 
         return $this;
     }

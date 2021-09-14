@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Apto{% endblock %}
+
+{% block body %}
+    <h1>Edit Apto</h1>
+
+    {{ include('apto/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('apto_index') }}">back to list</a>
+
+    {{ include('apto/_delete_form.html.twig') }}
+{% endblock %}
