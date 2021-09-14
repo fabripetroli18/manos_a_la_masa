@@ -12,8 +12,8 @@ class IngredienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('ingredienteDsc')
-            ->add('restriccions')
+            ->add('descripcion')
+            ->add('unidad')
         ;
     }
 

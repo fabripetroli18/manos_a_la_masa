@@ -12,12 +12,12 @@
                 <td>{{ recetum.id }}</td>
             </tr>
             <tr>
-                <th>RecetaNombre</th>
-                <td>{{ recetum.recetaNombre }}</td>
+                <th>Descripcion</th>
+                <td>{{ recetum.descripcion }}</td>
             </tr>
             <tr>
-                <th>RecetaImg</th>
-                <td>{{ recetum.recetaImg }}</td>
+                <th>Fecha</th>
+                <td>{{ recetum.fecha ? recetum.fecha|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>

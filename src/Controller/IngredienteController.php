@@ -10,18 +10,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/ingrediente')]
+/**
+ * @Route("/ingrediente")
+ */
 class IngredienteController extends AbstractController
 {
-    #[Route('/', name: 'ingrediente_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="ingrediente_index", methods={"GET"})
+     */
     public function index(IngredienteRepository $ingredienteRepository): Response
     {
         return $this->render('ingrediente/index.html.twig', [
             'ingredientes' => $ingredienteRepository->findAll(),
+            'usuario' => $this->getUser()
         ]);
     }
 
-    #[Route('/new', name: 'ingrediente_new', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/new", name="ingrediente_new", methods={"GET","POST"})
+     */
     public function new(Request $request): Response
     {
         $ingrediente = new Ingrediente();
@@ -33,7 +40,7 @@ class IngredienteController extends AbstractController
             $entityManager->persist($ingrediente);
             $entityManager->flush();
 
-            return $this->redirectToRoute('ingrediente_index');
+            return $this->redirectToRoute('ingrediente_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ingrediente/new.html.twig', [
@@ -42,7 +49,9 @@ class IngredienteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'ingrediente_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="ingrediente_show", methods={"GET"})
+     */
     public function show(Ingrediente $ingrediente): Response
     {
         return $this->render('ingrediente/show.html.twig', [
@@ -50,7 +59,9 @@ class IngredienteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'ingrediente_edit', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/{id}/edit", name="ingrediente_edit", methods={"GET","POST"})
+     */
     public function edit(Request $request, Ingrediente $ingrediente): Response
     {
         $form = $this->createForm(IngredienteType::class, $ingrediente);
@@ -59,7 +70,7 @@ class IngredienteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('ingrediente_index');
+            return $this->redirectToRoute('ingrediente_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ingrediente/edit.html.twig', [
@@ -68,7 +79,9 @@ class IngredienteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'ingrediente_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="ingrediente_delete", methods={"POST"})
+     */
     public function delete(Request $request, Ingrediente $ingrediente): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ingrediente->getId(), $request->request->get('_token'))) {
@@ -77,6 +90,37 @@ class IngredienteController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('ingrediente_index');
+        return $this->redirectToRoute('ingrediente_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/{id}/favorito", name="ingrediente_favorito", methods={"GET"})
+     */
+    public function favorito(IngredienteRepository $ingredientesRepository, Ingrediente $ingrediente): Response
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();      
+
+        $usuario = $this->getUser();
+        $existe = false;
+
+        $ingFavs = $usuario->getIngredienteFavorito();
+        foreach ($ingFavs as $ingredienteFav) {
+            if($ingrediente == $ingredienteFav){
+                $usuario->removeIngredienteFavorito($ingrediente);
+                $existe = true;
+            }
+        }
+
+        if(!$existe){
+            $usuario->addIngredienteFavorito($ingrediente);
+        }
+       
+        $entityManager->flush();
+
+        return $this->render('ingrediente/index.html.twig', [
+            'ingredientes' => $ingredientesRepository->findAll(),
+            'usuario' => $usuario
+        ]);
     }
 }

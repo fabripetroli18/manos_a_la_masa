@@ -22,26 +22,35 @@ class Receta
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $recetaNombre;
+    private $descripcion;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $recetaImg;
+    private $fecha;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Restriccion::class, mappedBy="receta")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recetas")
      */
-    private $restriccions;
+    private $Usuario;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Apto::class, inversedBy="recetas")
+     */
+    private $apto;
 
     /**
      * @ORM\OneToMany(targetEntity=RecetaIngrediente::class, mappedBy="receta")
      */
     private $recetaIngredientes;
 
+    public function __toString(){
+        return $this->getDescripcion();
+    }
+
     public function __construct()
     {
-        $this->restriccions = new ArrayCollection();
+        $this->apto = new ArrayCollection();
         $this->recetaIngredientes = new ArrayCollection();
     }
 
@@ -50,53 +59,62 @@ class Receta
         return $this->id;
     }
 
-    public function getRecetaNombre(): ?string
+    public function getDescripcion(): ?string
     {
-        return $this->recetaNombre;
+        return $this->descripcion;
     }
 
-    public function setRecetaNombre(string $recetaNombre): self
+    public function setDescripcion(string $descripcion): self
     {
-        $this->recetaNombre = $recetaNombre;
+        $this->descripcion = $descripcion;
 
         return $this;
     }
 
-    public function getRecetaImg()
+    public function getFecha(): ?\DateTimeInterface
     {
-        return $this->recetaImg;
+        return $this->fecha;
     }
 
-    public function setRecetaImg($recetaImg): self
+    public function setFecha(?\DateTimeInterface $fecha): self
     {
-        $this->recetaImg = $recetaImg;
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    public function getUsuario(): ?User
+    {
+        return $this->Usuario;
+    }
+
+    public function setUsuario(?User $Usuario): self
+    {
+        $this->Usuario = $Usuario;
 
         return $this;
     }
 
     /**
-     * @return Collection|Restriccion[]
+     * @return Collection|Apto[]
      */
-    public function getRestriccions(): Collection
+    public function getApto(): Collection
     {
-        return $this->restriccions;
+        return $this->apto;
     }
 
-    public function addRestriccion(Restriccion $restriccion): self
+    public function addApto(Apto $apto): self
     {
-        if (!$this->restriccions->contains($restriccion)) {
-            $this->restriccions[] = $restriccion;
-            $restriccion->addRecetum($this);
+        if (!$this->apto->contains($apto)) {
+            $this->apto[] = $apto;
         }
 
         return $this;
     }
 
-    public function removeRestriccion(Restriccion $restriccion): self
+    public function removeApto(Apto $apto): self
     {
-        if ($this->restriccions->removeElement($restriccion)) {
-            $restriccion->removeRecetum($this);
-        }
+        $this->apto->removeElement($apto);
 
         return $this;
     }

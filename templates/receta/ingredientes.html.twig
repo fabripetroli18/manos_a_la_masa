@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Receta index{% endblock %}
+
+{% block body %}
+    <h1>{{receta.descripcion}}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ingrediente</th>
+                <th>unidad</th>
+                <th>cantidad</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recetaingrediente in receta.recetaIngredientes %}
+            <tr>
+                <td>{{ recetaingrediente.ingrediente }}</td>
+                <td>{{ recetaingrediente.ingrediente.unidad }}</td>
+                <td>{{ recetaingrediente.cantidad }}</td>
+                <td>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('receta_ingrediente_new', {'id': receta.id}) }}">agregar</a>
+    <a href="{{ path('receta_index') }}">volver</a>
+{% endblock %}

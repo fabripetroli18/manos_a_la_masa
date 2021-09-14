@@ -12,9 +12,8 @@ class RecetaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('recetaNombre')
-            ->add('recetaImg')
-            ->add('restriccions')
+            ->add('descripcion')
+            ->add('apto')
         ;
     }
 
