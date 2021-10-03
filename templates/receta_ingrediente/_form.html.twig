@@ -1,4 +1,11 @@
 <form name="receta_ingrediente" method="post" action="{{receta.id}}">
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {% if receta.usuario == usuario %}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {% else %}
+        Esta receta no te pertence
+    {% endif %}
+    
+    
 {{ form_end(form) }}

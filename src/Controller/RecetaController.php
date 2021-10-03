@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/receta")
@@ -22,6 +25,7 @@ class RecetaController extends AbstractController
     {
         return $this->render('receta/index.html.twig', [
             'recetas' => $recetaRepository->findAll(),
+            'usuario' => $this->getUser()
         ]);
     }
 
@@ -51,21 +55,46 @@ class RecetaController extends AbstractController
             }
         }
 
-        return $this->render('receta/index.html.twig', [
+        return $this->render('receta/recetaIngFav.html.twig', [
             'recetas' => $recetasFav,
+            'usuario' => $this->getUser()
         ]);
     }
 
     /**
      * @Route("/new", name="receta_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SluggerInterface $slugger): Response
     {
         $recetum = new Receta();
         $form = $this->createForm(RecetaType::class, $recetum);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imagen = $form->get('imagen')->getData();
+
+            if ($imagen) {
+                $originalFilename = pathinfo($imagen->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagen->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imagen->move(
+                        $this->getParameter('imagenes'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $recetum->setImagen($newFilename);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $recetum->setUsuario($this->getUser());
             $recetum->setFecha(new \DateTime());
@@ -78,6 +107,7 @@ class RecetaController extends AbstractController
         return $this->render('receta/new.html.twig', [
             'recetum' => $recetum,
             'form' => $form->createView(),
+            'usuario' => $this->getUser()
         ]);
     }
 
@@ -88,6 +118,7 @@ class RecetaController extends AbstractController
     {
         return $this->render('receta/show.html.twig', [
             'recetum' => $recetum,
+            'usuario' => $this->getUser()
         ]);
     }
 
@@ -96,6 +127,7 @@ class RecetaController extends AbstractController
      */
     public function edit(Request $request, Receta $recetum): Response
     {
+
         $form = $this->createForm(RecetaType::class, $recetum);
         $form->handleRequest($request);
 
@@ -108,6 +140,7 @@ class RecetaController extends AbstractController
         return $this->render('receta/edit.html.twig', [
             'recetum' => $recetum,
             'form' => $form->createView(),
+            'usuario' => $this->getUser()
         ]);
     }
 
@@ -138,7 +171,7 @@ class RecetaController extends AbstractController
 
         $recFavs = $usuario->getRecetaFavorita();
         foreach ($recFavs as $recetaFav) {
-            if($recetum == $recetaFav){
+            if($recetum->getId() == $recetaFav->getId()){
                 $usuario->removeRecetaFavoritum($recetum);
                 $existe = true;
             }
@@ -152,6 +185,7 @@ class RecetaController extends AbstractController
 
         return $this->render('receta/index.html.twig', [
             'recetas' => $recetaRepository->findAll(),
+            'usuario' => $this->getUser()
         ]);
     }
 
@@ -165,6 +199,7 @@ class RecetaController extends AbstractController
        
         return $this->render('receta/ingredientes.html.twig', [
             'receta' => $recetum,
+            'usuario' => $this->getUser()
         ]);
     }
 }

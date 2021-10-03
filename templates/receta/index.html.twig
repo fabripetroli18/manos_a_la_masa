@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Receta index{% endblock %}
+{% block title %}Receta{% endblock %}
 
 {% block body %}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Recetas</h1>
     </div>
     <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="datatable table table-striped table-sm">
             <thead>
                 <tr>
                     <th>Descripcion</th>
                     <th>Autor</th>
                     <th>Favorita</th>
                     <th>Fecha</th>
-                    <th>actions</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,27 +22,26 @@
                 <tr>
                     <td>{{ recetum.descripcion }}</td>
                     <td>{{ recetum.usuario }}</td>
-                    <td>
-                    {% for receta in recetum.usuario.recetaFavorita %}
-                        {% if recetum.id == receta.id  %}Si{% endif %}
-                    {% endfor %}
+                    <td>{% if recetum in usuario.recetaFavorita  %}Si{% endif %}
                     </td>
                     <td>{{ recetum.fecha ? recetum.fecha|date('Y-m-d') : '' }}</td>
                     <td>
-                        <a href="{{ path('receta_show', {'id': recetum.id}) }}">show</a>
-                        <a href="{{ path('receta_edit', {'id': recetum.id}) }}">edit</a>
+                        <a href="{{ path('receta_show', {'id': recetum.id}) }}">mostrar</a>
+                        {% if recetum.usuario == usuario %}
+                        <a href="{{ path('receta_edit', {'id': recetum.id}) }}">editar</a>
+                        {% endif %}                        
                         <a href="{{ path('receta_favorita', {'id': recetum.id}) }}">favorita</a>
                         <a href="{{ path('receta_ingredientes', {'id': recetum.id}) }}">ingredientes</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="4">no records found</td>
+                    <td colspan="5">sin registros</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <a href="{{ path('receta_new') }}">Create new</a>
+    <a href="{{ path('receta_new') }}">Nueva Receta</a>
 {% endblock %}

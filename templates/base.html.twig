@@ -38,13 +38,13 @@
     </head>
     <body>
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Recetas Alimentarias</a>
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Manos a la Masa</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap">
-                <a class="nav-link px-3" href="/logout">Sign out</a>
+                    <a class="nav-link px-3" href="/logout">Salir</a>
                 </div>
             </div>
         </header>
@@ -55,21 +55,27 @@
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                         <li class="nav-item">
+                            <a class="nav-link" href="/perfil/{{ app.user.id }}">
+                            <span data-feather="user"></span>
+                            Perfil
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/receta">
-                            <span data-feather="home"></span>
+                            <span data-feather="book-open"></span>
                             Recetas
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/ingrediente">
-                            <span data-feather="file"></span>
-                            Ingredientes
+                            <a class="nav-link" href="/receta/recetaIngfavorita">
+                            <span data-feather="check-circle"></span>
+                            Recetas con Ingredientes Favoritos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/receta/recetaIngfavorita">
-                            <span data-feather="shopping-cart"></span>
-                            Recetas con Ingredientes Favoritos
+                            <a class="nav-link" href="/ingrediente">
+                            <span data-feather="bookmark"></span>
+                            Ingredientes
                             </a>
                         </li>
                         {% if is_granted('ROLE_ADMIN') %}
@@ -81,7 +87,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/apto">
-                            <span data-feather="bar-chart-2"></span>
+                            <span data-feather="tag"></span>
                             Apto
                             </a>
                         </li>
@@ -99,7 +105,11 @@
     
     <script>
         $(document).ready( function () {
-            $('.table').DataTable();
+            $('.datatable').DataTable({
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/es-ar.json'
+        }
+    } );
             feather.replace({ 'aria-hidden': 'true' })
         } );
     

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Receta Con Ingredientes Favoritos{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Receta Con Ingredientes Favoritos</h1>
+    </div>
+    <div class="table-responsive">
+        <table class="datatable table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Autor</th>
+                    <th>Favorita</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for recetum in recetas %}
+                <tr>
+                    <td>{{ recetum.descripcion }}</td>
+                    <td>{{ recetum.usuario }}</td>
+                    <td>{% if recetum in usuario.recetaFavorita  %}Si{% endif %}
+                    </td>
+                    <td>{{ recetum.fecha ? recetum.fecha|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a href="{{ path('receta_favorita', {'id': recetum.id}) }}">favorita</a>
+                        <a href="{{ path('receta_ingredientes', {'id': recetum.id}) }}">ingredientes</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">sin registros</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

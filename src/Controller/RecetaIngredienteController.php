@@ -43,13 +43,15 @@ class RecetaIngredienteController extends AbstractController
 
             return $this->render('receta/ingredientes.html.twig', [
                 'receta' => $receta,
+                'usuario' => $this->getUser()
             ]);
         }
 
         return $this->render('receta_ingrediente/new.html.twig', [
             'receta_ingrediente' => $recetaIngrediente,
             'form' => $form->createView(),
-            'receta' => $receta
+            'receta' => $receta,
+            'usuario' => $this->getUser()
         ]);
     }
 
@@ -94,6 +96,6 @@ class RecetaIngredienteController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('receta_ingrediente_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('receta_ingredientes', ['id' => $recetaIngrediente->getReceta()->getId()], Response::HTTP_SEE_OTHER);
     }
 }
