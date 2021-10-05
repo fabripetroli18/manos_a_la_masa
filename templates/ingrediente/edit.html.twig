@@ -10,4 +10,10 @@
     <a href="{{ path('ingrediente_index') }}">back to list</a>
 
     {{ include('ingrediente/_delete_form.html.twig') }}
+
+    {% if existe is defined %}
+    	{% if existe %}
+    		No se puede eliminar, este ingrediente esta siendo utilizado
+    	{% endif %}
+    {% endif %}
 {% endblock %}

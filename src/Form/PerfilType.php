@@ -2,26 +2,32 @@
 
 namespace App\Form;
 
-use App\Entity\Perfil;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PerfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('perfilNomApe')
-            ->add('usuario')
-            ->add('restriccions')
+            ->add('email')
+            ->add('nombre')
+            ->add('apellido')
+            ->add('apto')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Perfil::class,
+            'data_class' => User::class,
         ]);
     }
 }

@@ -1,40 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ingrediente index{% endblock %}
+{% block title %}Ingrediente{% endblock %}
 
 {% block body %}
-    <h1>Ingrediente index</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Ingrediente</h1>
+    </div>
+    <div class="table-responsive">
+        <table class="datatable table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Descripcion</th>
+                    <th>Favorito</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ingrediente in ingredientes %}
+                <tr>
+                    <td>{{ ingrediente.descripcion }}</td>
+                    <td>
+                    {% for ingredienteF in usuario.ingredienteFavorito %}
+                        {% if ingrediente.id == ingredienteF.id  %}Si{% endif %}
+                    {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('ingrediente_show', {'id': ingrediente.id}) }}">mostrar</a>
+                        <a href="{{ path('ingrediente_edit', {'id': ingrediente.id}) }}">editar</a>
+                        <a href="{{ path('ingrediente_favorito', {'id': ingrediente.id}) }}">favorito</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">sin registros/td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Descripcion</th>
-                <th>Favorito</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ingrediente in ingredientes %}
-            <tr>
-                <td>{{ ingrediente.descripcion }}</td>
-                <td>
-                {% for ingredienteF in usuario.ingredienteFavorito %}
-                    {% if ingrediente.id == ingredienteF.id  %}Si{% endif %}
-                {% endfor %}
-                </td>
-                <td>
-                    <a href="{{ path('ingrediente_show', {'id': ingrediente.id}) }}">show</a>
-                    <a href="{{ path('ingrediente_edit', {'id': ingrediente.id}) }}">edit</a>
-                    <a href="{{ path('ingrediente_favorito', {'id': ingrediente.id}) }}">favorito</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('ingrediente_new') }}">Create new</a>
+    <a href="{{ path('ingrediente_new') }}">Nuevo Ingrediente</a>
 {% endblock %}

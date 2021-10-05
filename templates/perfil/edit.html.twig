@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Perfil{% endblock %}
+{% block title %}Editar Perfil{% endblock %}
 
 {% block body %}
-    <h1>Edit Perfil</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Editar Perfil</h1>
+    </div>
 
-    {{ include('perfil/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('perfil/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('perfil_index') }}">back to list</a>
+    <a href="{{ path('perfil_show', {'id': user.id}) }}">cancelar</a>
 
-    {{ include('perfil/_delete_form.html.twig') }}
 {% endblock %}

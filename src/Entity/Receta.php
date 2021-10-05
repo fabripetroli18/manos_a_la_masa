@@ -44,6 +44,16 @@ class Receta
      */
     private $recetaIngredientes;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imagen;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $detalle;
+
     public function __toString(){
         return $this->getDescripcion();
     }
@@ -145,6 +155,30 @@ class Receta
                 $recetaIngrediente->setReceta(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImagen(): ?string
+    {
+        return $this->imagen;
+    }
+
+    public function setImagen(?string $imagen): self
+    {
+        $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    public function getDetalle(): ?string
+    {
+        return $this->detalle;
+    }
+
+    public function setDetalle(?string $detalle): self
+    {
+        $this->detalle = $detalle;
 
         return $this;
     }

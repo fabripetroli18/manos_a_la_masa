@@ -1,4 +1,21 @@
 <form name="receta_ingrediente" method="post" action="{{receta.id}}">
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="form-group">
+            {{ form_row(form.ingrediente, { 'attr':{'placeholder': 'Ingrediente' }}) }}
+            {{ form_errors(form.ingrediente) }}
+    </div>
+    <div class="form-group">
+    	<label for="unidad">Unidad</label>
+    	<input class="form-control" type="text" id="unidad" disabled value="">
+    </div>
+    <div class="form-group">
+            {{ form_row(form.cantidad, { 'attr':{'placeholder': 'Cantidad' }}) }}
+            {{ form_errors(form.cantidad) }}
+    </div>
+    {% if receta.usuario == usuario %}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {% else %}
+        Esta receta no te pertence
+    {% endif %}
+    
+    
 {{ form_end(form) }}

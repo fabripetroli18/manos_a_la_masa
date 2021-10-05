@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 /**
  * @Route("/unidad")
@@ -84,9 +85,20 @@ class UnidadController extends AbstractController
     public function delete(Request $request, Unidad $unidad): Response
     {
         if ($this->isCsrfTokenValid('delete'.$unidad->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($unidad);
-            $entityManager->flush();
+            
+            $form = $this->createForm(UnidadType::class, $unidad);
+            
+            try {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($unidad);
+                $entityManager->flush();
+            } catch (ForeignKeyConstraintViolationException $e) {
+                return $this->render('unidad/edit.html.twig', [
+                    'unidad' => $unidad,
+                    'form' => $form->createView(),
+                    'existe' => true
+                ]);
+            }
         }
 
         return $this->redirectToRoute('unidad_index', [], Response::HTTP_SEE_OTHER);

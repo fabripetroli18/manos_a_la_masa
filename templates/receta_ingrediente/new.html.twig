@@ -7,5 +7,5 @@
 
     {{ include('receta_ingrediente/_form.html.twig') }}
 
-    <a href="{{ path('receta_ingrediente_index') }}">back to list</a>
+    <a href="{{ path('receta_ingredientes', {'id': receta.id}) }}">back to list</a>
 {% endblock %}

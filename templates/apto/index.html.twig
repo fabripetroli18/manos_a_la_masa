@@ -1,35 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Apto index{% endblock %}
+{% block title %}Apto{% endblock %}
 
 {% block body %}
-    <h1>Apto index</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Apto</h1>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descripcion</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for apto in aptos %}
-            <tr>
-                <td>{{ apto.id }}</td>
-                <td>{{ apto.descripcion }}</td>
-                <td>
-                    <a href="{{ path('apto_show', {'id': apto.id}) }}">show</a>
-                    <a href="{{ path('apto_edit', {'id': apto.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('apto_new') }}">Create new</a>
+   <div class="table-responsive">
+        <table class="datatable table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Descripcion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for apto in aptos %}
+                <tr>
+                    <td>{{ apto.id }}</td>
+                    <td>{{ apto.descripcion }}</td>
+                    <td>
+                        <a href="{{ path('apto_show', {'id': apto.id}) }}">mostrar</a>
+                        <a href="{{ path('apto_edit', {'id': apto.id}) }}">editar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">sin registros</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{{ path('apto_new') }}">Nuevo Apto</a>
 {% endblock %}
