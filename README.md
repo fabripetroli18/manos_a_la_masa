@@ -6,6 +6,7 @@ siempre teniendo en cuenta la salud y la economía de los usuarios.
 
 
 #Estructura_del_proyecto.
+
 La mayoria del tiempo se trabajara sobre src/, template/ y config/.
 
 config/
