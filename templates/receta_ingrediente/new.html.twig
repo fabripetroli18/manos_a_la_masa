@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New RecetaIngrediente{% endblock %}
+{% block title %}Nuevo Ingrediente en Receta{% endblock %}
 
 {% block body %}
-    <h1>Create new RecetaIngrediente</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1>Agregar Ingrediente</h1>
+    </div>
 
     {{ include('receta_ingrediente/_form.html.twig') }}
-
-    <a href="{{ path('receta_ingredientes', {'id': receta.id}) }}">back to list</a>
 {% endblock %}

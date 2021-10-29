@@ -58,10 +58,11 @@ class RecetaIngredienteController extends AbstractController
     /**
      * @Route("/{id}", name="receta_ingrediente_show", methods={"GET"})
      */
-    public function show(RecetaIngrediente $recetaIngrediente): Response
+    public function show(Receta $recetum): Response
     {
         return $this->render('receta_ingrediente/show.html.twig', [
-            'receta_ingrediente' => $recetaIngrediente,
+            'recetum' => $recetum,
+            'usuario' => $this->getUser()
         ]);
     }
 

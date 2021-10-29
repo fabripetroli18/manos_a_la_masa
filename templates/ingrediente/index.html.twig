@@ -26,7 +26,7 @@
                     </td>
                     <td>
                         <a href="{{ path('ingrediente_show', {'id': ingrediente.id}) }}">mostrar</a>
-                        <a href="{{ path('ingrediente_edit', {'id': ingrediente.id}) }}">editar</a>
+                        {# <a href="{{ path('ingrediente_edit', {'id': ingrediente.id}) }}">editar</a> #}
                         <a href="{{ path('ingrediente_favorito', {'id': ingrediente.id}) }}">favorito</a>
                     </td>
                 </tr>
@@ -39,5 +39,5 @@
         </table>
     </div>
 
-    <a href="{{ path('ingrediente_new') }}">Nuevo Ingrediente</a>
+    <a class="btn btn-primary enlinea" href="{{ path('ingrediente_new') }}">Nuevo Ingrediente</a>
 {% endblock %}

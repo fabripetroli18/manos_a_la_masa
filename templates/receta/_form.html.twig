@@ -2,12 +2,13 @@
     {{ form_widget(form) }}
     {% if recetum.id != null %}
         {% if recetum.usuario == usuario %}
-            <button class="btn">{{ button_label|default('Save') }}</button>
+            <button class="btn btn-success linea">{{ button_label|default('Guardar') }}</button>
         {% else %}
-            Esta receta no te pertenece
+            
         {% endif %}
     {% else %}
-        <button class="btn">{{ button_label|default('Save') }}</button>
+        <button class="btn btn-success linea">{{ button_label|default('Guardar') }}</button>
     {% endif %}   
-    
+    <a class="btn btn-primary linea" href="{{ path('receta_index') }}">Volver</a>
 {{ form_end(form) }}
+

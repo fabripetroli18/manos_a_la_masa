@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Apto{% endblock %}
+{% block title %}Nuevo Apto{% endblock %}
 
 {% block body %}
-    <h1>Create new Apto</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Alta Apto</h1>
+    </div>
 
     {{ include('apto/_form.html.twig') }}
-
-    <a href="{{ path('apto_index') }}">back to list</a>
 {% endblock %}

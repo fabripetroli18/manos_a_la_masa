@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th>Imagen</th>
-                <td><img src="{{ asset('uploads/imagenes/' ~ recetum.imagen) }}"></img></td>
+                <td><img src="{{ asset('uploads/imagenes/' ~ recetum.imagen) }}" width="640" height="360"></img></td>
             </tr>
             <tr>
                 <th>Detalle</th>
@@ -30,19 +30,31 @@
         </tbody>
     </table>
 
-    <a href="{{ path('receta_index') }}">back to list</a>
-
-    {% if recetum is defined %}
-        {% if recetum.usuario == usuario %}
-            <a href="{{ path('receta_edit', {'id': recetum.id}) }}">edit</a>
-            {{ include('receta/_delete_form.html.twig') }}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ingrediente</th>
+                <th>unidad</th>
+                <th>cantidad</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recetaingrediente in recetum.recetaIngredientes %}
+            <tr>
+                <td>{{ recetaingrediente.ingrediente }}</td>
+                <td>{{ recetaingrediente.ingrediente.unidad }}</td>
+                <td>{{ recetaingrediente.cantidad }}</td>
+            </tr>
         {% else %}
-            Esta receta no te pertenece
-        {% endif %}
-    {% else %}
-        <a href="{{ path('receta_edit', {'id': recetum.id}) }}">edit</a>
-        {{ include('receta/_delete_form.html.twig') }}
-    {% endif %}
+            <tr>
+                <td colspan="4">sin ingredientes</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary linea" href="{{ path('receta_index') }}">Volver</a>
 
     
 {% endblock %}

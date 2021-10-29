@@ -107,7 +107,7 @@ class IngredienteController extends AbstractController
                 $entityManager->remove($ingrediente);
                 $entityManager->flush();
             } catch (ForeignKeyConstraintViolationException $e) {
-                return $this->render('ingrediente/edit.html.twig', [
+                return $this->render('ingrediente/show.html.twig', [
                     'ingrediente' => $ingrediente,
                     'form' => $form->createView(),
                     'existe' => true

@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ingrediente{% endblock %}
+{% block title %}Nuevo Ingrediente{% endblock %}
 
 {% block body %}
-    <h1>Create new Ingrediente</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Alta Ingrediente</h1>
+    </div>
 
     {{ include('ingrediente/_form.html.twig') }}
 
-    <a href="{{ path('ingrediente_index') }}">back to list</a>
+    
 {% endblock %}

@@ -13,6 +13,7 @@
                     <th>Descripcion</th>
                     <th>Autor</th>
                     <th>Favorita</th>
+                    <th>Apto</th>
                     <th>Fecha</th>
                     <th>Acciones</th>
                 </tr>
@@ -22,6 +23,7 @@
                     <th class="filter">Descripcion</th>
                     <th class="filter">Autor</th>
                     <th class="filter">Favorita</th>
+                    <th class="filter">Apto</th>
                     <th class="filter">Fecha</th>
                     <td width="130px" style="text-align: center; vertical-align: middle;">Acciones</td>
                 </tr>
@@ -33,24 +35,30 @@
                     <td>{{ recetum.usuario }}</td>
                     <td>{% if recetum in usuario.recetaFavorita  %}Si{% endif %}
                     </td>
+                    <td>
+                        {% for apto in recetum.apto %}
+                            {{ apto.descripcion }},  
+                        {% endfor %}
+                    </td>
                     <td>{{ recetum.fecha ? recetum.fecha|date('Y-m-d') : '' }}</td>
                     <td>
-                        <a href="{{ path('receta_show', {'id': recetum.id}) }}">mostrar</a>
-                        {% if recetum.usuario == usuario %}
-                        <a href="{{ path('receta_edit', {'id': recetum.id}) }}">editar</a>
-                        {% endif %}                        
+                        <a href="{{ path('receta_show', {'id': recetum.id}) }}">mostrar</a>                        
                         <a href="{{ path('receta_favorita', {'id': recetum.id}) }}">favorita</a>
-                        <a href="{{ path('receta_ingredientes', {'id': recetum.id}) }}">ingredientes</a>
+                        {% if recetum.usuario == usuario or usuario.nombre == 'Admin'  %}
+                        <a href="{{ path('receta_edit', {'id': recetum.id}) }}">editar receta</a>
+                        <a href="{{ path('receta_ingredientes', {'id': recetum.id}) }}">editar ingredientes</a>
+                        {% endif %}
+                        
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">sin registros</td>
+                    <td colspan="6">sin registros</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <a href="{{ path('receta_new') }}">Nueva Receta</a>
+    <a class="btn btn-primary enlinea" href="{{ path('receta_new') }}">Nueva Receta</a>
 {% endblock %}

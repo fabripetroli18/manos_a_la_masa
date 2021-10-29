@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Receta{% endblock %}
+{% block title %}Nueva Receta{% endblock %}
 
 {% block body %}
-    <h1>Create new Receta</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Alta Receta</h1>
+    </div>
 
     {{ include('receta/_form.html.twig') }}
 
-    <a href="{{ path('receta_index') }}">back to list</a>
+    
 {% endblock %}

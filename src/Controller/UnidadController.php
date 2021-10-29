@@ -93,7 +93,7 @@ class UnidadController extends AbstractController
                 $entityManager->remove($unidad);
                 $entityManager->flush();
             } catch (ForeignKeyConstraintViolationException $e) {
-                return $this->render('unidad/edit.html.twig', [
+                return $this->render('unidad/show.html.twig', [
                     'unidad' => $unidad,
                     'form' => $form->createView(),
                     'existe' => true

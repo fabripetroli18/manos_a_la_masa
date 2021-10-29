@@ -12,10 +12,9 @@
             {{ form_errors(form.cantidad) }}
     </div>
     {% if receta.usuario == usuario %}
-        <button class="btn">{{ button_label|default('Save') }}</button>
+        <button class="btn btn-success linea">{{ button_label|default('Guardar') }}</button>
     {% else %}
         Esta receta no te pertence
     {% endif %}
-    
-    
+    <a class="btn btn-primary linea" href="{{ path('receta_ingredientes', {'id': receta.id}) }}">Volver</a>
 {{ form_end(form) }}

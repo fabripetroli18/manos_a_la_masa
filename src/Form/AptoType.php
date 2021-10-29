@@ -13,7 +13,6 @@ class AptoType extends AbstractType
     {
         $builder
             ->add('descripcion')
-            ->add('recetas')
         ;
     }
 

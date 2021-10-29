@@ -1,4 +1,6 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn btn-primary enlinea">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-success linea">{{ button_label|default('Save') }}</button>
+    <a class="btn btn-primary linea" href="{{ path('perfil_show', {'id': user.id}) }}">Cancelar</a>
 {{ form_end(form) }}
+    

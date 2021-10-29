@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Unidad{% endblock %}
+{% block title %}Nueva Unidad{% endblock %}
 
 {% block body %}
-    <h1>Create new Unidad</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Alta Unidad</h1>
+    </div>
 
     {{ include('unidad/_form.html.twig') }}
 
-    <a href="{{ path('unidad_index') }}">back to list</a>
+    
 {% endblock %}

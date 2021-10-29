@@ -22,7 +22,7 @@
                     <td>{{ unidad.descripcion }}</td>
                     <td>
                         <a href="{{ path('unidad_show', {'id': unidad.id}) }}">mostrar</a>
-                        <a href="{{ path('unidad_edit', {'id': unidad.id}) }}">editar</a>
+                        {# <a href="{{ path('unidad_edit', {'id': unidad.id}) }}">editar</a> #}
                     </td>
                 </tr>
             {% else %}
@@ -33,5 +33,5 @@
             </tbody>
         </table>
     </div>
-    <a href="{{ path('unidad_new') }}">Nueva Unidad</a>
+    <a class="btn btn-primary enlinea" href="{{ path('unidad_new') }}">Nueva Unidad</a>
 {% endblock %}

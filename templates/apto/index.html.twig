@@ -23,7 +23,7 @@
                     <td>{{ apto.descripcion }}</td>
                     <td>
                         <a href="{{ path('apto_show', {'id': apto.id}) }}">mostrar</a>
-                        <a href="{{ path('apto_edit', {'id': apto.id}) }}">editar</a>
+                        {#<a href="{{ path('apto_edit', {'id': apto.id}) }}">editar</a>#}
                     </td>
                 </tr>
             {% else %}
@@ -34,5 +34,5 @@
             </tbody>
         </table>
     </div>
-    <a href="{{ path('apto_new') }}">Nuevo Apto</a>
+    <a class="btn btn-primary enlinea" href="{{ path('apto_new') }}">Nuevo Apto</a>
 {% endblock %}

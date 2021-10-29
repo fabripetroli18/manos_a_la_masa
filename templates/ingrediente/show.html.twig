@@ -3,7 +3,9 @@
 {% block title %}Ingrediente{% endblock %}
 
 {% block body %}
-    <h1>Ingrediente</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Ingrediente</h1>
+    </div>
 
     <table class="table">
         <tbody>
@@ -17,10 +19,13 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('ingrediente_index') }}">back to list</a>
-
-    <a href="{{ path('ingrediente_edit', {'id': ingrediente.id}) }}">edit</a>
-
+    
     {{ include('ingrediente/_delete_form.html.twig') }}
+    {% if existe is defined %}
+    	{% if existe %}
+            <div class="alert alert-danger" role="alert">
+                 No se puede eliminar, este ingrediente esta siendo utilizado
+            </div>
+    	{% endif %}
+    {% endif %}
 {% endblock %}

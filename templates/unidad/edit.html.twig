@@ -1,19 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Unidad{% endblock %}
+{% block title %}Editar Unidad{% endblock %}
 
 {% block body %}
-    <h1>Edit Unidad</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Editar Unidad</h1>
+    </div>
 
-    {{ include('unidad/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('unidad_index') }}">back to list</a>
+    {{ include('unidad/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    {{ include('unidad/_delete_form.html.twig') }}
-
-    {% if existe is defined %}
-    	{% if existe %}
-    		No se puede eliminar, esta unidad esta siendo utilizada
-    	{% endif %}
-    {% endif %}
 {% endblock %}

@@ -1,4 +1,6 @@
-<form method="post" action="{{ path('apto_delete', {'id': apto.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('apto_delete', {'id': apto.id}) }}" onsubmit="return confirm('¿Esta seguro que desea eliminar este Apto?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ apto.id) }}">
-    <button class="btn">Delete</button>
+    <a class="btn btn-success linea" href="{{ path('apto_edit', {'id': apto.id}) }}">Editar</a>
+    <a class="btn btn-primary linea" href="{{ path('apto_index') }}">Volver</a>
+    <button class="btn btn-danger linea">Borrar</button>
 </form>

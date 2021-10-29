@@ -151,6 +151,10 @@ class RecetaController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$recetum->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            
+            foreach ($recetum->getRecetaIngredientes() as $recetaIngredientes) {
+                $entityManager->remove($recetaIngredientes);
+            }
             $entityManager->remove($recetum);
             $entityManager->flush();
         }

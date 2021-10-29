@@ -1,4 +1,6 @@
-<form method="post" action="{{ path('ingrediente_delete', {'id': ingrediente.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('ingrediente_delete', {'id': ingrediente.id}) }}" onsubmit="return confirm('¿Esta seguro que desea eliminar este Ingrediente?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ingrediente.id) }}">
-    <button class="btn">Delete</button>
+    <a class="btn btn-success linea" href="{{ path('ingrediente_edit', {'id': ingrediente.id}) }}">Editar</a>
+    <a class="btn btn-primary linea" href="{{ path('ingrediente_index') }}">Volver</a>
+    <button class="btn btn-danger linea">Borrar</button>
 </form>

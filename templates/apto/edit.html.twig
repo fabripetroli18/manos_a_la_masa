@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Apto{% endblock %}
+{% block title %}Editar Apto{% endblock %}
 
 {% block body %}
-    <h1>Edit Apto</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Editar Apto</h1>
+    </div>
 
-    {{ include('apto/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('apto_index') }}">back to list</a>
-
-    {{ include('apto/_delete_form.html.twig') }}
+    {{ include('apto/_form.html.twig', {'button_label': 'Actualizar'}) }}
 {% endblock %}

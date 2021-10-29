@@ -3,8 +3,9 @@
 {% block title %}Receta index{% endblock %}
 
 {% block body %}
-    <h1>{{receta.descripcion}}</h1>
-
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">{{receta.descripcion}}</h1>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -28,15 +29,15 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">sin ingredientes</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
     {% if receta.usuario == usuario %}
-        <a href="{{ path('receta_ingrediente_new', {'id': receta.id}) }}">agregar</a>
+        <a class="btn btn-success linea" href="{{ path('receta_ingrediente_new', {'id': receta.id}) }}">Agregar</a>
     {% endif %}
 
-    <a href="{{ path('receta_index') }}">volver</a>
+    <a class="btn btn-primary linea" href="{{ path('receta_index') }}">Volver</a>
 {% endblock %}
